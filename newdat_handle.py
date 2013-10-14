@@ -39,22 +39,18 @@ class ConfigNewdat:
         type_list = ['TT','EE','BB','EB','TE','TB']
         nlines = len(self.ndf1_lines)
 
-        itype = 0
-
         for i in range(0,nlines):
             if any(self.ndf1_lines[i].strip() in s for s in type_list):
                 tp_type = self.ndf1_lines[i].strip()
                 print "reading " + tp_type
 
                 num_bands = self.num_bands[type_list.index(tp_type)]
-                #num_bands = self.num_bands[itype]
                 bp_info = np.zeros((num_bands,8))
 
                 for iline in range(0,num_bands):
                     bp_info[iline,0:8] = [float(j) for j in self.ndf1_lines[i+1+iline].split()]
 
                 self.bp_table[tp_type] = bp_info
-                itype += 1
         
         self.has_bp_table = True
 
